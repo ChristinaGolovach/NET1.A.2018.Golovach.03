@@ -10,9 +10,12 @@ namespace Logic
     {
         private const int MINSENSIBLENUMBER = 12;
         private const int NOTFOUNDBIGGERNUMBER = -1;
+        private const int MINDEGREE = 1;
+        private const int MINACCURANCY = 0;
+        private const int MAXACCURANCY = 1;
 
         /// <summary>
-        /// Performs a search of a closer bigger number that consists of input number's digits.  
+        /// Performs the search of a closer bigger number that consists of input number's digits.  
         /// </summary>
         /// <param name="number">
         /// The number for which the search will be executed.
@@ -36,10 +39,66 @@ namespace Logic
                 return NOTFOUNDBIGGERNUMBER;
             }           
 
-            return (HiddenFindNextBiggerNumber(number));
+            return HiddenFindNextBiggerNumber(number);
         }
 
-        #region Logic Next Bigger Number
+        /// <summary>
+        /// Performs the calculation of the root of a given degree to the required accuracy for a real number by Newton's method.
+        /// </summary>
+        /// <param name="number"> 
+        /// The real number for which calculation will be.</param>
+        /// <param name="degree">
+        /// The required degree of root.</param>
+        /// <param name="accuracy">
+        /// The required accuracy.
+        /// </param>
+        /// <returns>
+        /// The nTh degree root of number. 
+        /// </returns>
+        public static double FindNthRoot(double number, int degree, double accuracy)
+        {
+            CheckInputData(number, degree, accuracy);
+
+            double initialGuess = number;
+            double nextX = FindNextX(number, initialGuess, degree);
+            double currentX = initialGuess;
+
+            while (Math.Abs(nextX - currentX) > accuracy)
+            {
+                currentX = nextX;
+                nextX = FindNextX(number, currentX, degree);
+            }
+
+            return nextX;
+        }
+
+        #region Nth Root By Newton's method
+        private static double FindNextX(double number, double currentX, int degree)
+        {
+            return (1D / degree) * (((degree - 1) * currentX) + (number / Math.Pow(currentX, degree - 1)));  
+        }
+
+        private static void CheckInputData(double number, int degree, double accuracy)
+        {
+            if (degree < MINDEGREE)
+            {
+                throw new ArgumentException($"The value of {nameof(degree)} can not be less than {MINDEGREE}");
+            }
+
+            if (accuracy <= MINACCURANCY || accuracy >= MAXACCURANCY)
+            {
+                throw new ArgumentOutOfRangeException($"The value of {nameof(accuracy)} must be in range betwen {MINACCURANCY} - {MAXACCURANCY}");
+            }
+
+            if (number <= 0 && (degree >> 1) == 1)
+            {
+                throw new ArgumentException("The root can not be found when degree is even and number is less than 0.");
+            }
+        }
+
+        #endregion Nth Root By Newton's method
+
+        #region Next Bigger Number
         private static int HiddenFindNextBiggerNumber(int number)
         {
             int[] numberViewInArray = ConvertIntToArray(number);
@@ -130,6 +189,6 @@ namespace Logic
             a = b;
             b = temp;
         }
-        #endregion Logic Next Bigger Number
+        #endregion Next Bigger Number
     }
 }

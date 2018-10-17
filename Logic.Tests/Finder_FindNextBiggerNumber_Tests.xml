@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<TestCases>
+  <TestCase>
+    <number>12</number>    
+    <expectedResult>21</expectedResult>
+  </TestCase>
+  <TestCase>
+    <number>513</number>    
+    <expectedResult>531</expectedResult>
+  </TestCase>
+  <TestCase>
+    <number>2017</number>    
+    <expectedResult>2071</expectedResult>
+  </TestCase>
+  <TestCase>
+    <number>414</number>    
+    <expectedResult>441</expectedResult>
+  </TestCase>
+  <TestCase>
+    <number>1234321</number>    
+    <expectedResult>1241233</expectedResult>
+  </TestCase>
+  <TestCase>
+    <number>1234126</number>    
+    <expectedResult>1234162</expectedResult>
+  </TestCase>
+  <TestCase>
+    <number>3456432</number>    
+    <expectedResult>3462345</expectedResult>
+  </TestCase>
+  <TestCase>
+    <number>10</number>
+    <expectedResult>-1</expectedResult>
+  </TestCase>
+  <TestCase>
+    <number>20</number>
+    <expectedResult>-1</expectedResult>
+  </TestCase>
+  <TestCase>
+    <number>2</number>
+    <expectedResult>-1</expectedResult>
+  </TestCase>
+</TestCases>

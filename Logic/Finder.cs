@@ -58,6 +58,7 @@ namespace Logic
         public static double FindNthRoot(double number, int degree, double accuracy)
         {
             CheckInputData(number, degree, accuracy);
+
             double initialGuess = number;
             double nextX = FindNextX(number, initialGuess, degree);
             double currentX = initialGuess;
@@ -89,7 +90,7 @@ namespace Logic
                 throw new ArgumentOutOfRangeException($"The value of {nameof(accuracy)} must be in range betwen {MINACCURANCY} - {MAXACCURANCY}");
             }
 
-            if (number <= 0 && (degree >> 1) == 0)
+            if (number <= 0 &&  (degree & 1) == 0)
             {
                 throw new ArgumentException("The root can not be found when degree is even and number is less than 0.");
             }

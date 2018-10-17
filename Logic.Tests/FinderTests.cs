@@ -68,7 +68,7 @@ namespace Logic.Tests
             => Finder.FindNthRoot(0.001, -2, 0.0001);
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentOutOfRangeException))]
+        [ExpectedException(typeof(ArgumentException))]
         public void FindNthRoot_PassOutOfRangeAccurancy_ThrownException()
              => Finder.FindNthRoot(0.01, 2, -1);
 
@@ -76,7 +76,7 @@ namespace Logic.Tests
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public void FindNthRoot_PassNegativeNumberAndEvenRoot_ThrownException()
-            => Finder.FindNthRoot(-0.001, 2, 0.0001);
+            => Finder.FindNthRoot(-0.01, 2, 0.0001);
 
         #endregion FindNthRoot tests
     }

@@ -87,7 +87,7 @@ namespace Logic
 
             if (accuracy <= MINACCURANCY || accuracy >= MAXACCURANCY)
             {
-                throw new ArgumentOutOfRangeException($"The value of {nameof(accuracy)} must be in range betwen {MINACCURANCY} - {MAXACCURANCY}");
+                throw new ArgumentException($"The value of {nameof(accuracy)} must be in range betwen {MINACCURANCY} - {MAXACCURANCY}");
             }
 
             if (number <= 0 &&  (degree & 1) == 0)

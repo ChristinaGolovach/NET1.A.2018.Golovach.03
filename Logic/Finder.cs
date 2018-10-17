@@ -90,7 +90,7 @@ namespace Logic
                 throw new ArgumentException($"The value of {nameof(accuracy)} must be in range betwen {MINACCURANCY} - {MAXACCURANCY}");
             }
 
-            if (number <= 0 &&  (degree & 1) == 0)
+            if (number <= 0 && (degree & 1) == 0)
             {
                 throw new ArgumentException("The root can not be found when degree is even and number is less than 0.");
             }

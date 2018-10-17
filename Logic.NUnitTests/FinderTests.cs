@@ -53,18 +53,13 @@ namespace Logic.NUnitTests
         public void FindNthRoot_PassNegativeNumberAndEvenDegree_TrownException(double number, int degree, double accuracy)
             => Assert.Throws<ArgumentException>(() => Finder.FindNthRoot(number, degree, accuracy));
 
-
         [TestCase(0.001, -2, 0.0001)]
         public void FindNthRoot_PassNegativeDegree_TrownException(double number, int degree, double accuracy)
             => Assert.Throws<ArgumentException>(() => Finder.FindNthRoot(number, degree, accuracy));
-
 
         [TestCase(0.001, 2, -0.0001)]
         public void FindNthRoot_PassNegativeAccurancy_TrownException(double number, int degree, double accuracy)
             => Assert.Throws<ArgumentException>(() => Finder.FindNthRoot(number, degree, accuracy));
         #endregion FindNthRoot tests
-
-
-
     }
 }

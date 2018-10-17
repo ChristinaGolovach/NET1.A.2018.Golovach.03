@@ -1,7 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-
 namespace Logic.Tests
 {
     [TestClass]
@@ -56,10 +55,10 @@ namespace Logic.Tests
             double expectedResult = Convert.ToDouble(TestContext.DataRow["expectedResult"]);
 
             // Act
-            double result = Finder.FindNthRoot(number,degree,accuracy);
+            double result = Finder.FindNthRoot(number, degree, accuracy);
 
             // Assert
-            Assert.AreEqual(expectedResult, result,accuracy);
+            Assert.AreEqual(expectedResult, result, accuracy);
         }
 
         [TestMethod]
@@ -71,7 +70,6 @@ namespace Logic.Tests
         [ExpectedException(typeof(ArgumentException))]
         public void FindNthRoot_PassOutOfRangeAccurancy_ThrownException()
              => Finder.FindNthRoot(0.01, 2, -1);
-
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]

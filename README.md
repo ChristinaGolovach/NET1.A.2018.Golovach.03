@@ -1,5 +1,11 @@
 # NET1.A.2018.Golovach.03 - (deadline 17.10.2018, 24.00)
 
+# Изменения
+- логика метода HiddenFindNextBiggerNumber переписана.
+- метод FindNextBiggerNumber возвращает null, а не -1, в случае неудачного поиска.
+- const заменены на static readonly.
+- 1D -> 1.0.
+
 # Задание
 
 Внести правки по выполненным ранее задачам с учетом замечаний.
@@ -31,9 +37,3 @@
 -  [TestCase(3456432, ExpectedResult = 3462345)]
 -  [TestCase(10, ExpectedResult = -1)]
 -  [TestCase(20, ExpectedResult = -1)]
-
-# Изменения
-- логика метода HiddenFindNextBiggerNumber переписана.
-- метод FindNextBiggerNumber возвращает null, а не -1, в случае неудачного поиска.
-- const заменены на static readonly.
-- 1D -> 1.0.

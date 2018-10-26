@@ -24,7 +24,7 @@ namespace Logic.Tests
             int expectedResult = Convert.ToInt32(TestContext.DataRow["expectedResult"]);
 
             // Act
-            int result = Finder.FindNextBiggerNumber(number);
+            int? result = Finder.FindNextBiggerNumber(number);
 
             // Assert
             Assert.AreEqual(expectedResult, result);

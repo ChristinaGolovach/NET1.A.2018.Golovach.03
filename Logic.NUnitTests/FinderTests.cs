@@ -20,13 +20,13 @@ namespace Logic.NUnitTests
         [TestCase(1234321, ExpectedResult = 1241233)]
         [TestCase(1234126, ExpectedResult = 1234162)]
         [TestCase(3456432, ExpectedResult = 3462345)]
-        public int FindNextBiggerNumber_PassNumberForWhichBigerNumberExists_ReturnBiggerNumber(int number)
+        public int? FindNextBiggerNumber_PassNumberForWhichBigerNumberExists_ReturnBiggerNumber(int number)
             => Finder.FindNextBiggerNumber(number);
 
-        [TestCase(10, ExpectedResult = -1)]
-        [TestCase(20, ExpectedResult = -1)]
-        [TestCase(2, ExpectedResult = -1)]
-        public int FindNextBiggerNumber_PassNumberForWhichBigerNumberDoesNotExist_ReturnBiggerNotFoundValue(int number)
+        [TestCase(10, ExpectedResult = null)]
+        [TestCase(20, ExpectedResult = null)]
+        [TestCase(2, ExpectedResult = null)]
+        public int? FindNextBiggerNumber_PassNumberForWhichBigerNumberDoesNotExist_ReturnBiggerNotFoundValue(int number)
             => Finder.FindNextBiggerNumber(number);
 
         [TestCase(-1)]

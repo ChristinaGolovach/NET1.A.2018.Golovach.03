@@ -8,11 +8,18 @@ namespace Logic
     /// </summary>
     public static class Finder
     {
-        private const int MINSENSIBLENUMBER = 12;
-        private const int NOTFOUNDBIGGERNUMBER = -1;
-        private const int MINDEGREE = 1;
-        private const int MINACCURANCY = 0;
-        private const int MAXACCURANCY = 1;
+        private static readonly int MINSENSIBLENUMBER;
+        private static readonly int MINDEGREE;
+        private static readonly int MINACCURANCY;
+        private static readonly int MAXACCURANCY;
+
+        static Finder()
+        {
+            MINSENSIBLENUMBER = 12;
+            MINDEGREE = 1;
+            MINACCURANCY = 0;
+            MAXACCURANCY = 1;
+        }
 
         /// <summary>
         /// Performs the search of a closer bigger number that consists of input number's digits.  
@@ -27,7 +34,7 @@ namespace Logic
         /// <exception cref="ArgumentOutOfRangeException">
         /// Thrown when the input number is negative.
         /// </exception>
-        public static int FindNextBiggerNumber(int number)
+        public static int? FindNextBiggerNumber(int number)
         {
             if (number <= 0)
             {
@@ -36,7 +43,7 @@ namespace Logic
 
             if (number < MINSENSIBLENUMBER)
             {
-                return NOTFOUNDBIGGERNUMBER;
+                return null;
             }           
 
             return HiddenFindNextBiggerNumber(number);
@@ -72,10 +79,10 @@ namespace Logic
             return nextX;
         }
 
-        #region Nth Root By Newton's method
+        #region Core Nth Root By Newton's method
         private static double FindNextX(double number, double currentX, int degree)
         {
-            return (1D / degree) * (((degree - 1) * currentX) + (number / Math.Pow(currentX, degree - 1)));  
+            return (1.0 / degree) * (((degree - 1) * currentX) + (number / Math.Pow(currentX, degree - 1)));  
         }
 
         private static void CheckInputData(double number, int degree, double accuracy)
@@ -98,51 +105,29 @@ namespace Logic
 
         #endregion Nth Root By Newton's method
 
-        #region Next Bigger Number
-        private static int HiddenFindNextBiggerNumber(int number)
+        #region Core Next Bigger Number
+        private static int? HiddenFindNextBiggerNumber(int number)
         {
             int[] numberViewInArray = ConvertIntToArray(number);
+            bool isSort = false;
 
-            if (numberViewInArray.Length == 2)
+            for (int i = 0; i < numberViewInArray.Length - 1; i++)
             {
-                Swap(ref numberViewInArray[0], ref numberViewInArray[1]);
-                int numberOut = ConvertArrayToInt(numberViewInArray);
-                return numberOut > number ? numberOut : NOTFOUNDBIGGERNUMBER; 
+                if (!IsHaveBiggerNumber(numberViewInArray, numberViewInArray[i + 1], i + 1) && !isSort)
+                {
+                    Swap(ref numberViewInArray[i], ref numberViewInArray[i + 1]);
+                    Array.Sort(numberViewInArray, i + 1, numberViewInArray.Length - ++i);
+                    isSort = true;
+                }
             }
 
-            int[] numberViewInSortedArray = new int[numberViewInArray.Length];
-            int[] result = new int[numberViewInArray.Length];
-            int i = 0;
+            int? resultNumber = ConvertArrayToInt(numberViewInArray);
 
-            numberViewInArray.CopyTo(numberViewInSortedArray, 0);
-            Array.Sort(numberViewInSortedArray);
-
-            while (i < numberViewInArray.Length - 1 && IsHaveBiggerNumber(numberViewInSortedArray, numberViewInArray[i + 1]))
-            {
-                result[i] = numberViewInArray[i];
-                int index = Array.IndexOf(numberViewInSortedArray, result[i]);
-                numberViewInSortedArray[index] = -1;
-                i++;
-            }
-
-            result[i] = numberViewInArray[i + 1];
-            int index2 = Array.IndexOf(numberViewInSortedArray, result[i]);
-            numberViewInSortedArray[index2] = -1;
-
-            Array.Sort(numberViewInSortedArray);
-            int indexMinus1 = Array.LastIndexOf(numberViewInSortedArray, -1);
-
-            for (int j = i + 1; j < numberViewInSortedArray.Length; j++)
-            {
-                result[j] = numberViewInSortedArray[indexMinus1 + 1];
-                indexMinus1++;
-            }
-
-            int resultNumber = ConvertArrayToInt(result);
-
-            return resultNumber > number ? resultNumber : NOTFOUNDBIGGERNUMBER;
+            return resultNumber > number ? resultNumber : null;
         }
+        #endregion Next Bigger Number
 
+        #region Utils
         private static int ConvertArrayToInt(int[] array)
         {
             int digitOfNumber = (int)Math.Pow(10, array.Length - 1);
@@ -170,9 +155,9 @@ namespace Logic
             return numberViewInArray;            
         }
 
-        private static bool IsHaveBiggerNumber(int[] array, int number)
+        private static bool IsHaveBiggerNumber(int[] array, int number, int startIndex)
         {
-            for (int i = 0; i < array.Length; i++)
+            for (int i = startIndex; i < array.Length; i++)
             {
                 if (array[i] > number)
                 {
@@ -189,6 +174,6 @@ namespace Logic
             a = b;
             b = temp;
         }
-        #endregion Next Bigger Number
+        #endregion Utils
     }
 }
